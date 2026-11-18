@@ -6,7 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".MainActivity">
+
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textOn="List View"
+        android:textOff="Grid View"
+        android:layout_gravity="end"
+        android:checked="false"
+        android:id="@+id/btnToggleLayout" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

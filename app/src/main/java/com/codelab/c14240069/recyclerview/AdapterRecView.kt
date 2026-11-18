@@ -1,5 +1,6 @@
 package com.codelab.c14240069.recyclerview
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -10,6 +11,16 @@ import com.codelab.c14240069.recyclerview.databinding.ItemRecyclerBinding
 
 class AdapterRecView (private val listWayang: ArrayList<DcWayang>) :
     RecyclerView.Adapter<AdapterRecView.ListViewHolder>() {
+        private lateinit var onItemClickCallback: OnItemClickCallback
+
+    interface OnItemClickCallback {
+        fun onItemClicked(data: DcWayang)
+    }
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -48,6 +59,10 @@ class AdapterRecView (private val listWayang: ArrayList<DcWayang>) :
                 "Gambar ${wayang.nama} diklik",
                 Toast.LENGTH_SHORT
             ).show()
+
+            if (::onItemClickCallback.isInitialized) {
+                onItemClickCallback.onItemClicked(wayang)
+            }
         }
     }
 

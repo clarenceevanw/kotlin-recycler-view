@@ -2,6 +2,8 @@ package com.codelab.c14240069.recyclerview
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -37,6 +39,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnToggleLayout.setOnCheckedChangeListener { _, isChecked ->
             tampilkanData()
+        }
+
+        binding.btnTambah.setOnClickListener {
+            tambahDataDialog()
         }
 
         siapkanData()
@@ -110,5 +116,50 @@ class MainActivity : AppCompatActivity() {
         binding.rvWayang.itemAnimator = DefaultItemAnimator().apply {
             removeDuration = 400L
         }
+    }
+
+    private fun tambahDataDialog() {
+        val layout = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(50, 40, 50, 10)
+        }
+
+        val etNama = EditText(this).apply { hint = "Nama Wayang" }
+        val etKarakter = EditText(this).apply { hint = "Karakter (Pandawa/Kurawa/dll)" }
+        val etDeskripsi = EditText(this).apply { hint = "Deskripsi" }
+        val etFoto = EditText(this).apply { hint = "URL Foto (Opsional)" }
+
+        layout.addView(etNama)
+        layout.addView(etKarakter)
+        layout.addView(etDeskripsi)
+        layout.addView(etFoto)
+
+        AlertDialog.Builder(this)
+            .setTitle("Tambah Data Wayang")
+            .setView(layout)
+            .setPositiveButton("Simpan") { _, _ ->
+                val nama = etNama.text.toString().trim()
+                val karakter = etKarakter.text.toString().trim()
+                val deskripsi = etDeskripsi.text.toString().trim()
+                val foto = etFoto.text.toString().trim()
+
+                if (nama.isNotEmpty() && karakter.isNotEmpty() && deskripsi.isNotEmpty()) {
+                    val imageUrl = if (foto.isNotEmpty()) foto else ""
+                    val wayangObj = DcWayang(
+                        foto = imageUrl,
+                        nama = nama,
+                        karakter = karakter,
+                        deskripsi = deskripsi
+                    )
+                    _arWayang.add(0, wayangObj)
+                    binding.rvWayang.adapter?.notifyItemInserted(0)
+                    binding.rvWayang.scrollToPosition(0)
+                    Toast.makeText(this, "$nama berhasil ditambahkan", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "Nama, Karakter, dan Deskripsi tidak boleh kosong!", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .setNegativeButton("Batal", null)
+            .show()
     }
 }

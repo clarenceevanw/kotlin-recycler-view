@@ -6,21 +6,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:paddingTop="32dp"
+    android:padding="24dp"
     tools:context=".MainActivity">
 
-    <ToggleButton
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textOn="List View"
-        android:textOff="Grid View"
-        android:layout_gravity="end"
-        android:checked="false"
-        android:id="@+id/btnToggleLayout" />
+        android:gravity="end"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tambah Data"
+            android:layout_marginRight="8dp"
+            android:id="@+id/btnTambah" />
+
+        <ToggleButton
+            android:id="@+id/btnToggleLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:checked="false"
+            android:textOff="Grid View"
+            android:textOn="List View" />
+    </LinearLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvWayang"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/rvWayang" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>

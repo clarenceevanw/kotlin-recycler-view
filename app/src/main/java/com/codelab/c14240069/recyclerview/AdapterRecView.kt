@@ -34,5 +34,5 @@ class AdapterRecView (private val listWayang: ArrayList<DcWayang>) :
     }
 
     class ListViewHolder(val binding: ItemRecyclerBinding) :
-        RecyclerView.ViewHolder(binding.root))
+        RecyclerView.ViewHolder(binding.root)
 }
